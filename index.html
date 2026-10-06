@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Don't Worry Be Happy — AI Assistant Toko Online</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#07060f;--panel:#110f24;--cyan:#00f0ff;--pink:#ff2bd6;--yellow:#f5ff3b;--text:#e6e8ff;--muted:#8a8cb3;--red:#ff4d6d;--green:#2bff88}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;
+    background-image:linear-gradient(rgba(0,240,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,240,255,.05) 1px,transparent 1px);background-size:40px 40px}
+  h1,h2,h3{font-family:'Orbitron',sans-serif;letter-spacing:1px}
+  .wrap{max-width:1050px;margin:0 auto;padding:0 20px}
+  section{padding:70px 0}
+  .sec-title{text-align:center;font-size:clamp(1.4rem,4vw,2rem);margin-bottom:10px;color:var(--cyan);text-shadow:0 0 12px rgba(0,240,255,.6)}
+  .sec-sub{text-align:center;color:var(--muted);margin-bottom:40px}
+
+  /* HERO */
+  .hero{min-height:92vh;display:flex;align-items:center;text-align:center}
+  .avatar{width:120px;height:120px;margin:0 auto 24px;border-radius:50%;display:grid;place-items:center;font-size:58px;
+    background:radial-gradient(circle,#1d1640,#0b0a1a);border:3px solid var(--cyan);box-shadow:0 0 25px var(--cyan),0 0 60px rgba(255,43,214,.4);animation:float 4s ease-in-out infinite}
+  @keyframes float{50%{transform:translateY(-10px)}}
+  .badge{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:30px;font-size:.9rem;font-weight:600;
+    background:rgba(43,255,136,.08);border:1px solid var(--green);color:var(--green);box-shadow:0 0 15px rgba(43,255,136,.4);animation:pulse 2s infinite}
+  @keyframes pulse{50%{box-shadow:0 0 28px rgba(43,255,136,.8)}}
+  .hero h1{font-size:clamp(2rem,7vw,4rem);margin:22px 0 14px;background:linear-gradient(90deg,var(--cyan),var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 10px rgba(255,43,214,.5))}
+  .tagline{font-size:clamp(1rem,2.5vw,1.25rem);color:var(--text);max-width:680px;margin:0 auto 32px}
+  .btn{display:inline-block;padding:14px 32px;border-radius:8px;font-family:'Orbitron',sans-serif;font-weight:800;text-decoration:none;cursor:pointer;transition:.3s;border:none}
+  .btn-neon{background:var(--pink);color:#fff;box-shadow:0 0 20px var(--pink)}
+  .btn-neon:hover{transform:translateY(-3px);box-shadow:0 0 40px var(--pink)}
+
+  /* PROBLEM vs SOLUTION */
+  .compare{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .col{background:var(--panel);border-radius:14px;padding:30px;position:relative}
+  .chaos{border:1px solid var(--red);box-shadow:0 0 18px rgba(255,77,109,.25)}
+  .solution{border:1px solid var(--cyan);box-shadow:0 0 18px rgba(0,240,255,.25)}
+  .col h3{margin-bottom:18px;font-size:1.2rem}
+  .chaos h3{color:var(--red)} .solution h3{color:var(--cyan)}
+  .col ul{list-style:none}
+  .col li{padding:12px 0;border-bottom:1px dashed rgba(255,255,255,.1);display:flex;gap:12px}
+  .col li:last-child{border:none}
+
+  /* CAPABILITIES */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .card{background:var(--panel);border:1px solid rgba(255,43,214,.35);border-radius:14px;padding:28px;transition:.3s}
+  .card:hover{transform:translateY(-6px);border-color:var(--pink);box-shadow:0 0 25px rgba(255,43,214,.45)}
+  .card .ic{font-size:2.2rem;margin-bottom:14px}
+  .card h3{font-size:1rem;color:var(--yellow);margin-bottom:10px}
+  .card p{color:var(--muted);font-size:.95rem}
+  .tag{display:inline-block;margin-top:14px;font-size:.75rem;padding:4px 10px;border-radius:20px;border:1px solid var(--cyan);color:var(--cyan)}
+
+  /* SIMULATION */
+  .sim{max-width:640px;margin:0 auto;background:var(--panel);border:1px solid var(--cyan);border-radius:16px;overflow:hidden;box-shadow:0 0 30px rgba(0,240,255,.25)}
+  .sim-head{display:flex;align-items:center;gap:12px;padding:14px 18px;background:#0c0a1d;border-bottom:1px solid rgba(0,240,255,.3)}
+  .sim-head .mini{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;border:2px solid var(--cyan);font-size:20px}
+  .sim-head small{color:var(--green);display:block;font-size:.75rem}
+  .chat{height:340px;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:12px}
+  .msg{max-width:82%;padding:10px 14px;border-radius:12px;font-size:.93rem;animation:pop .35s ease}
+  @keyframes pop{from{opacity:0;transform:translateY(10px)}}
+  .user{align-self:flex-end;background:var(--pink);color:#fff;border-bottom-right-radius:3px}
+  .bot{align-self:flex-start;background:#1c1838;border:1px solid rgba(0,240,255,.4);border-bottom-left-radius:3px}
+  .typing{display:flex;gap:5px;padding:14px}
+  .typing span{width:8px;height:8px;border-radius:50%;background:var(--cyan);animation:blink 1s infinite}
+  .typing span:nth-child(2){animation-delay:.2s}.typing span:nth-child(3){animation-delay:.4s}
+  @keyframes blink{50%{opacity:.2;transform:translateY(-4px)}}
+  .placeholder{margin:auto;color:var(--muted);text-align:center;font-size:.9rem}
+  .scenarios{display:flex;flex-wrap:wrap;gap:10px;padding:16px;border-top:1px solid rgba(0,240,255,.3);background:#0c0a1d}
+  .scn{flex:1;min-width:150px;padding:11px;border-radius:8px;background:transparent;border:1px solid var(--cyan);color:var(--cyan);font-weight:600;cursor:pointer;transition:.25s;font-family:inherit}
+  .scn:hover:not(:disabled){background:var(--cyan);color:var(--bg);box-shadow:0 0 15px var(--cyan)}
+  .scn:disabled{opacity:.4;cursor:not-allowed}
+
+  /* FOOTER */
+  footer{text-align:center;padding:70px 20px 40px;border-top:1px solid rgba(255,43,214,.3)}
+  footer h2{font-size:clamp(1.3rem,4vw,1.9rem);margin-bottom:14px}
+  footer p.credit{margin-top:40px;color:var(--muted);font-size:.85rem;letter-spacing:1px}
+
+  @media(max-width:800px){.cards{grid-template-columns:1fr}.compare{grid-template-columns:1fr}section{padding:50px 0}}
+</style>
+</head>
+<body>
+
+<!-- 1. HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="avatar">😊</div>
+    <span class="badge">🟢 Status: Active &amp; Ready 24/7</span>
+    <h1>Don't Worry Be Happy</h1>
+    <p class="tagline">AI Assistant yang mengelola stok, mencatat setiap order dari toko online, dan merekap penjualan secara otomatis, jadi kamu bisa fokus jualan.</p>
+    <a href="#simulasi" class="btn btn-neon">⚡ Coba Simulasinya</a>
+  </div>
+</section>
+
+<!-- 2. PROBLEM & SOLUTION -->
+<section>
+  <div class="wrap">
+    <h2 class="sec-title">Dari Kacau Jadi Terkendali</h2>
+    <p class="sec-sub">Masalah klasik pemilik toko online, dan cara agen ini menyelesaikannya.</p>
+    <div class="compare">
+      <div class="col chaos">
+        <h3>⚠️ The Chaos</h3>
+        <ul>
+          <li><span>📦</span><span>Data stok tidak ter-update dan berantakan, sering kehabisan barang tanpa sadar.</span></li>
+          <li><span>❌</span><span>Order terlewat karena tidak ada yang merekap data order masuk.</span></li>
+          <li><span>💸</span><span>Catatan pemasukan uang kacau, sulit tahu untung atau rugi.</span></li>
+        </ul>
+      </div>
+      <div class="col solution">
+        <h3>✅ The Solution</h3>
+        <ul>
+          <li><span>📊</span><span>Stok otomatis tersinkron ke Google Spreadsheet di Google Drive.</span></li>
+          <li><span>📅</span><span>Setiap order direkap ke spreadsheet dan diberi reminder pengiriman di Google Calendar.</span></li>
+          <li><span>🙋</span><span>Keuangan tercatat rapi, dan setiap perapian data selalu menunggu persetujuanmu.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. CORE CAPABILITIES -->
+<section>
+  <div class="wrap">
+    <h2 class="sec-title">Core Capabilities</h2>
+    <p class="sec-sub">Tiga kemampuan utama yang bekerja nonstop untuk tokomu.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="ic">📦</div>
+        <h3>Smart Inventory</h3>
+        <p>Memperbarui stok setiap ada transaksi dan memberi peringatan saat barang hampir habis.</p>
+        <span class="tag">Google Sheets · Drive</span>
+      </div>
+      <div class="card">
+        <div class="ic">🛒</div>
+        <h3>Order Tracker</h3>
+        <p>Mencatat order masuk dari toko online dan memasang reminder pengiriman agar tidak ada yang terlewat.</p>
+        <span class="tag">Google Sheets · Calendar</span>
+      </div>
+      <div class="card">
+        <div class="ic">💰</div>
+        <h3>Finance Recap</h3>
+        <p>Merekap penjualan dan pemasukan, lalu meminta persetujuanmu sebelum merapikan data.</p>
+        <span class="tag">Human-in-the-Loop</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. INTERACTIVE SIMULATION -->
+<section id="simulasi">
+  <div class="wrap">
+    <h2 class="sec-title">Live Simulation</h2>
+    <p class="sec-sub">Klik salah satu skenario dan lihat cara agen bekerja.</p>
+    <div class="sim">
+      <div class="sim-head">
+        <div class="mini">😊</div>
+        <div><strong>Don't Worry Be Happy</strong><small>● online</small></div>
+      </div>
+      <div class="chat" id="chat"><p class="placeholder">👇 Pilih skenario di bawah untuk memulai percakapan</p></div>
+      <div class="scenarios">
+        <button class="scn" data-s="stok">📦 Cek Stok</button>
+        <button class="scn" data-s="order">🛒 Order Masuk</button>
+        <button class="scn" data-s="rekap">💰 Rekap Penjualan</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. FOOTER & CTA -->
+<footer>
+  <h2>Siap Punya Karyawan Digital Sendiri?</h2>
+  <p style="color:var(--muted);margin-bottom:28px">Hubungi saya untuk diskusi atau demo langsung.</p>
+  <a href="https://wa.me/6285263741188" target="_blank" rel="noopener" class="btn btn-neon">💬 Chat via WhatsApp</a>
+  <p class="credit">Built with AI · AI Builder Bootcamp Showcase</p>
+</footer>
+
+<script>
+  const scenarios = {
+    stok: [
+      ["user","Stok kaos hitam ukuran M masih berapa?"],
+      ["bot","Stok Kaos Hitam M: <b>12 pcs</b> (update 5 menit lalu dari Google Sheets). ⚠️ Kaos Putih L tinggal <b>3 pcs</b>. Mau saya tandai untuk restock?"]
+    ],
+    order: [
+      ["user","Ada order baru hari ini?"],
+      ["bot","Ada <b>4 order baru</b> dari toko online. Semuanya sudah saya catat di sheet <i>Rekap Order</i> ✅"],
+      ["bot","📅 Reminder pengiriman juga sudah saya pasang di Google Calendar untuk pukul 14.00 hari ini."]
+    ],
+    rekap: [
+      ["user","Rekap penjualan minggu ini dong."],
+      ["bot","Total pemasukan minggu ini <b>Rp 4.750.000</b> dari 38 order 📈. Saya menemukan 5 baris duplikat di sheet Keuangan. Boleh saya rapikan? 🙋"],
+      ["user","Boleh, lanjutkan."],
+      ["bot","Selesai! Data keuangan sudah rapi dan tersimpan di Google Drive. Don't worry, be happy 😊"]
+    ]
+  };
+
+  const chat = document.getElementById("chat");
+  const buttons = document.querySelectorAll(".scn");
+  const wait = ms => new Promise(r => setTimeout(r, ms));
+
+  function addMsg(who, html){
+    const el = document.createElement("div");
+    el.className = "msg " + who;
+    el.innerHTML = html;
+    chat.appendChild(el);
+    chat.scrollTop = chat.scrollHeight;
+    return el;
+  }
+
+  async function run(key){
+    buttons.forEach(b => b.disabled = true);
+    chat.innerHTML = "";
+    for (const [who, text] of scenarios[key]){
+      if (who === "bot"){
+        const t = addMsg("bot typing", "<span></span><span></span><span></span>");
+        await wait(1300);
+        t.remove();
+      } else {
+        await wait(500);
+      }
+      addMsg(who, text);
+      await wait(400);
+    }
+    buttons.forEach(b => b.disabled = false);
+  }
+
+  buttons.forEach(b => b.addEventListener("click", () => run(b.dataset.s)));
+</script>
+</body>
+</html>
